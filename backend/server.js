@@ -9,6 +9,8 @@ app.use(express.json());
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/providers', require('./routes/providers'));
 app.use('/api/orders', require('./routes/orders'));
+app.use('/api/chat', require('./routes/chat'));
+app.use('/api/offers', require('./routes/offers'));
 
 app.get('/api/health', (_, res) => res.json({ status: 'ok' }));
 

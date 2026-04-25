@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
+  <rect width="192" height="192" rx="32" fill="#1d4ed8"/>
+  <circle cx="96" cy="96" r="70" fill="#1e40af"/>
+  <text x="96" y="78" font-family="Arial,sans-serif" font-size="36" font-weight="900" fill="white" text-anchor="middle" letter-spacing="-1">SC</text>
+  <text x="96" y="108" font-family="Arial,sans-serif" font-size="14" fill="#93c5fd" text-anchor="middle">سروس کنیکٹ</text>
+  <circle cx="96" cy="136" r="16" fill="#16a34a"/>
+  <text x="96" y="141" font-family="Arial,sans-serif" font-size="16" fill="white" text-anchor="middle">🔧</text>
+</svg>

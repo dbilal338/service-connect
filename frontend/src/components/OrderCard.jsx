@@ -1,40 +1,53 @@
 import { Link } from 'react-router-dom';
+import { useLanguage } from '../contexts/LanguageContext';
+import { CATEGORY_MAP, formatPKR } from '../constants';
 
-const STATUS_CONFIG = {
-  pending: { label: 'Awaiting Quote', color: 'bg-yellow-100 text-yellow-700', icon: '⏳' },
-  quoted: { label: 'Quote Received', color: 'bg-blue-100 text-blue-700', icon: '💬' },
-  accepted: { label: 'Accepted', color: 'bg-indigo-100 text-indigo-700', icon: '✅' },
-  in_progress: { label: 'In Progress', color: 'bg-orange-100 text-orange-700', icon: '🔨' },
-  provider_done: { label: 'Work Done — Confirm?', color: 'bg-purple-100 text-purple-700', icon: '🎯' },
-  confirmed: { label: 'Completed', color: 'bg-green-100 text-green-700', icon: '🏆' },
-  cancelled: { label: 'Cancelled', color: 'bg-red-100 text-red-700', icon: '❌' },
+const STATUS_CFG = {
+  pending:       { key: 'status_pending',       cls: 's-pending',       icon: '⏳' },
+  quoted:        { key: 'status_quoted',         cls: 's-quoted',        icon: '💬' },
+  accepted:      { key: 'status_accepted',       cls: 's-accepted',      icon: '✅' },
+  in_progress:   { key: 'status_in_progress',    cls: 's-in_progress',   icon: '🔨' },
+  provider_done: { key: 'status_provider_done',  cls: 's-provider_done', icon: '🎯' },
+  confirmed:     { key: 'status_confirmed',      cls: 's-confirmed',     icon: '🏆' },
+  cancelled:     { key: 'status_cancelled',      cls: 's-cancelled',     icon: '❌' },
 };
 
 export default function OrderCard({ order, role }) {
-  const cfg = STATUS_CONFIG[order.status] || STATUS_CONFIG.pending;
-  const otherParty = role === 'consumer' ? order.provider_name : order.consumer_name;
+  const { t, isUrdu } = useLanguage();
+  const cfg = STATUS_CFG[order.status] || STATUS_CFG.pending;
+  const otherName = role === 'consumer' ? order.provider_name : order.consumer_name;
   const phone = role === 'consumer' ? order.provider_phone : order.consumer_phone;
+  const cat = CATEGORY_MAP[order.service_type];
 
   return (
-    <Link to={`/orders/${order.id}`} className="block card hover:shadow-md transition-shadow">
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 mb-1">
-            <span className={`badge ${cfg.color}`}>{cfg.icon} {cfg.label}</span>
-            {order.service_type && <span className="badge bg-gray-100 text-gray-600">{order.service_type}</span>}
-          </div>
-          <h3 className="font-semibold text-gray-900">{role === 'consumer' ? `Provider: ${otherParty}` : `Client: ${otherParty}`}</h3>
-          <p className="text-sm text-gray-600 mt-1 line-clamp-2">{order.description}</p>
-          <p className="text-xs text-gray-400 mt-2">📍 {order.address} • {new Date(order.created_at).toLocaleDateString()}</p>
+    <Link to={`/orders/${order.id}`} className="block card active:shadow-md transition-shadow fade-in">
+      <div className="flex items-start gap-3">
+        <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-xl flex-shrink-0 ${cat?.bg || 'bg-slate-100'}`}>
+          {cat?.icon || '🛠️'}
         </div>
-        <div className="text-right flex-shrink-0">
-          {order.quoted_price && (
-            <p className="text-lg font-bold text-gray-900">${order.quoted_price}</p>
-          )}
+        <div className="flex-1 min-w-0">
+          <div className="flex items-start justify-between gap-2">
+            <div className="min-w-0">
+              <span className={`badge ${cfg.cls} text-[11px]`}>{cfg.icon} {t(cfg.key)}</span>
+              <h3 className="font-semibold text-slate-900 text-sm mt-1 truncate">
+                {role === 'consumer' ? `${otherName}` : `${otherName}`}
+              </h3>
+              <p className="text-xs text-slate-500 mt-0.5 line-clamp-2 leading-relaxed">{order.description}</p>
+            </div>
+            {order.quoted_price && (
+              <div className="text-right flex-shrink-0">
+                <p className="font-bold text-slate-900 text-sm">{formatPKR(order.quoted_price)}</p>
+              </div>
+            )}
+          </div>
+          <div className="flex items-center justify-between mt-2">
+            <p className="text-[11px] text-slate-400">📍 {order.address?.slice(0, 30)}{order.address?.length > 30 ? '…' : ''}</p>
+            <p className="text-[11px] text-slate-400">{new Date(order.created_at).toLocaleDateString('en-PK')}</p>
+          </div>
           {phone && (
             <a href={`tel:${phone}`} onClick={e => e.stopPropagation()}
-              className="flex items-center gap-1 text-sm text-blue-600 hover:text-blue-700 mt-1">
-              📞 Call
+              className="inline-flex items-center gap-1 text-xs text-blue-600 mt-1.5 font-medium">
+              📞 {phone}
             </a>
           )}
         </div>

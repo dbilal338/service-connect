@@ -1,79 +1,117 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import axios from 'axios';
+import { useLanguage } from '../contexts/LanguageContext';
+import { CATEGORIES } from '../constants';
 import ProviderCard from '../components/ProviderCard';
 
-const SERVICES = ['All', 'Electrician', 'Plumber', 'Carpenter', 'Painter', 'HVAC Technician', 'Locksmith', 'Cleaner', 'Gardener'];
-const SERVICE_ICONS = { 'Electrician':'⚡','Plumber':'🔧','Carpenter':'🪚','Painter':'🎨','HVAC Technician':'❄️','Locksmith':'🔑','Cleaner':'🧹','Gardener':'🌱','All':'🛠️' };
-
 export default function Browse() {
+  const { t, isUrdu } = useLanguage();
   const [searchParams, setSearchParams] = useSearchParams();
   const [providers, setProviders] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState(searchParams.get('service') || 'All');
+  const [activeFilter, setActiveFilter] = useState(searchParams.get('service') || '');
   const [maxRate, setMaxRate] = useState('');
+  const [showFilter, setShowFilter] = useState(false);
 
-  const fetchProviders = async (service, rate) => {
+  const fetch = async (service, rate) => {
     setLoading(true);
     try {
       const params = {};
-      if (service && service !== 'All') params.service_type = service;
+      if (service) params.service_type = service;
       if (rate) params.max_rate = rate;
       const r = await axios.get('/api/providers', { params });
       setProviders(r.data);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
+    } catch { /* ignore */ } finally { setLoading(false); }
   };
 
-  useEffect(() => { fetchProviders(filter, maxRate); }, [filter]);
+  useEffect(() => {
+    const q = searchParams.get('q') || '';
+    const svc = searchParams.get('service') || '';
+    setActiveFilter(svc);
+    fetch(svc, maxRate);
+  }, [searchParams]);
 
-  const handleFilter = (s) => {
-    setFilter(s);
-    setSearchParams(s !== 'All' ? { service: s } : {});
+  const handleFilter = (id) => {
+    const newFilter = activeFilter === id ? '' : id;
+    setActiveFilter(newFilter);
+    setSearchParams(newFilter ? { service: newFilter } : {});
   };
+
+  const applyRate = () => { fetch(activeFilter, maxRate); setShowFilter(false); };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-6">Find Service Professionals</h1>
-
-      {/* Filters */}
-      <div className="flex gap-3 flex-wrap mb-6">
-        {SERVICES.map(s => (
-          <button key={s} onClick={() => handleFilter(s)}
-            className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-colors border ${
-              filter === s ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-600 border-gray-300 hover:border-blue-400'
-            }`}>
-            <span>{SERVICE_ICONS[s]}</span> {s}
+    <div className="page pb-6">
+      {/* Category scroll */}
+      <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar -mx-4 px-4 mb-4">
+        <button
+          onClick={() => handleFilter('')}
+          className={`flex-shrink-0 flex items-center gap-1.5 px-3.5 py-2 rounded-full text-sm font-semibold transition-colors border ${
+            !activeFilter ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-slate-600 border-slate-200'
+          }`}
+        >
+          🛠️ {t('allCategories')}
+        </button>
+        {CATEGORIES.map(cat => (
+          <button
+            key={cat.id}
+            onClick={() => handleFilter(cat.id)}
+            className={`flex-shrink-0 flex items-center gap-1.5 px-3.5 py-2 rounded-full text-sm font-semibold transition-colors border ${
+              activeFilter === cat.id ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-slate-600 border-slate-200'
+            }`}
+          >
+            {cat.icon} {isUrdu ? cat.urdu : cat.label}
           </button>
         ))}
       </div>
 
-      <div className="flex items-center gap-4 mb-6">
-        <div className="flex items-center gap-2">
-          <label className="text-sm font-medium text-gray-700">Max rate:</label>
-          <input type="number" value={maxRate} onChange={e => setMaxRate(e.target.value)} placeholder="Any"
-            className="w-24 border border-gray-300 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-          <span className="text-sm text-gray-500">/hr</span>
-          <button onClick={() => fetchProviders(filter, maxRate)} className="btn-primary text-sm py-1.5 px-4">Filter</button>
-        </div>
-        <span className="text-sm text-gray-500 ml-auto">{providers.length} professional{providers.length !== 1 ? 's' : ''} found</span>
+      {/* Filter + count row */}
+      <div className="flex items-center justify-between mb-4">
+        <p className="text-sm text-slate-500">
+          {loading ? '...' : `${providers.length} ${isUrdu ? 'نتیجے' : 'found'}`}
+        </p>
+        <button
+          onClick={() => setShowFilter(!showFilter)}
+          className="flex items-center gap-1.5 text-sm font-semibold text-blue-600 bg-blue-50 px-3 py-1.5 rounded-lg"
+        >
+          🔧 {t('filter')} {maxRate && `≤ Rs ${maxRate}`}
+        </button>
       </div>
 
+      {/* Rate filter panel */}
+      {showFilter && (
+        <div className="card mb-4 fade-in">
+          <label className="input-label">{t('maxRate')} (Rs)</label>
+          <div className="flex gap-2">
+            <input
+              type="number"
+              value={maxRate}
+              onChange={e => setMaxRate(e.target.value)}
+              placeholder="e.g. 1000"
+              className="input"
+            />
+            <button onClick={applyRate} className="flex-shrink-0 btn btn-primary btn-sm" style={{ width: 'auto' }}>
+              {t('search')}
+            </button>
+          </div>
+        </div>
+      )}
+
       {loading ? (
-        <div className="flex justify-center py-20">
-          <div className="animate-spin w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full" />
+        <div className="flex flex-col items-center justify-center py-16 gap-3">
+          <div className="w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
+          <p className="text-slate-400 text-sm">{t('loading')}</p>
         </div>
       ) : providers.length === 0 ? (
-        <div className="text-center py-20 text-gray-400">
-          <p className="text-5xl mb-4">🔍</p>
-          <p className="text-lg font-medium">No professionals found</p>
-          <p className="text-sm mt-1">Try adjusting your filters</p>
+        <div className="text-center py-16">
+          <p className="text-5xl mb-3">🔍</p>
+          <p className="font-semibold text-slate-700">{t('noProviders')}</p>
+          <button onClick={() => { setActiveFilter(''); setMaxRate(''); setSearchParams({}); }} className="mt-3 text-blue-600 text-sm font-medium">
+            Clear filters
+          </button>
         </div>
       ) : (
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="flex flex-col gap-3">
           {providers.map(p => <ProviderCard key={p.id} provider={p} />)}
         </div>
       )}
