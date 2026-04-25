@@ -38,22 +38,22 @@ export default function InstallPrompt() {
   if (!show) return null;
 
   return (
-    <div className="fixed bottom-20 left-4 right-4 z-50 slide-up" style={{ bottom: 'calc(4rem + var(--safe-bottom) + 12px)' }}>
-      <div className="card shadow-xl border border-blue-100 bg-gradient-to-br from-blue-600 to-blue-700 text-white p-4">
+    <div className="fixed left-4 right-4 z-50 slide-up" style={{ bottom: 'calc(var(--nav-h) + var(--safe-b) + 12px)' }}>
+      <div className="rounded-2xl p-4 text-white" style={{ background: 'linear-gradient(135deg, #16a34a, #15803d)', boxShadow: '0 8px 32px rgba(22,163,74,0.35)' }}>
         <div className="flex items-start gap-3">
           <div className="text-3xl">📱</div>
           <div className="flex-1 min-w-0">
             <p className="font-bold text-sm">{t('installApp')}</p>
-            <p className="text-blue-100 text-xs mt-0.5 leading-relaxed">
+            <p className="text-green-100 text-xs mt-0.5 leading-relaxed">
               {isIOS ? t('iosInstall') : t('installDesc')}
             </p>
           </div>
-          <button onClick={dismiss} className="text-blue-200 hover:text-white text-xl leading-none flex-shrink-0 p-1">×</button>
+          <button onClick={dismiss} className="text-green-200 hover:text-white text-xl leading-none flex-shrink-0 p-1">×</button>
         </div>
         {!isIOS && (
           <button
             onClick={install}
-            className="mt-3 w-full bg-white text-blue-600 font-bold py-2.5 rounded-xl text-sm active:bg-blue-50 transition-colors"
+            className="mt-3 w-full bg-white text-green-700 font-bold py-2.5 rounded-xl text-sm active:bg-green-50 transition-colors"
           >
             {t('installBtn')} ✓
           </button>

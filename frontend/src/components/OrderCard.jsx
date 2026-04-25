@@ -13,14 +13,14 @@ const STATUS_CFG = {
 };
 
 export default function OrderCard({ order, role }) {
-  const { t, isUrdu } = useLanguage();
+  const { t } = useLanguage();
   const cfg = STATUS_CFG[order.status] || STATUS_CFG.pending;
   const otherName = role === 'consumer' ? order.provider_name : order.consumer_name;
   const phone = role === 'consumer' ? order.provider_phone : order.consumer_phone;
   const cat = CATEGORY_MAP[order.service_type];
 
   return (
-    <Link to={`/orders/${order.id}`} className="block card active:shadow-md transition-shadow fade-in">
+    <Link to={`/orders/${order.id}`} className="block card active:scale-[0.99] transition-transform fade-in">
       <div className="flex items-start gap-3">
         <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-xl flex-shrink-0 ${cat?.bg || 'bg-slate-100'}`}>
           {cat?.icon || '🛠️'}
@@ -29,9 +29,7 @@ export default function OrderCard({ order, role }) {
           <div className="flex items-start justify-between gap-2">
             <div className="min-w-0">
               <span className={`badge ${cfg.cls} text-[11px]`}>{cfg.icon} {t(cfg.key)}</span>
-              <h3 className="font-semibold text-slate-900 text-sm mt-1 truncate">
-                {role === 'consumer' ? `${otherName}` : `${otherName}`}
-              </h3>
+              <h3 className="font-semibold text-slate-900 text-sm mt-1 truncate">{otherName}</h3>
               <p className="text-xs text-slate-500 mt-0.5 line-clamp-2 leading-relaxed">{order.description}</p>
             </div>
             {order.quoted_price && (
@@ -46,7 +44,7 @@ export default function OrderCard({ order, role }) {
           </div>
           {phone && (
             <a href={`tel:${phone}`} onClick={e => e.stopPropagation()}
-              className="inline-flex items-center gap-1 text-xs text-blue-600 mt-1.5 font-medium">
+              className="inline-flex items-center gap-1 text-xs text-green-600 mt-1.5 font-medium">
               📞 {phone}
             </a>
           )}

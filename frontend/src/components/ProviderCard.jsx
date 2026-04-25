@@ -14,14 +14,14 @@ function Stars({ rating }) {
 }
 
 export default function ProviderCard({ provider }) {
-  const { t, isUrdu } = useLanguage();
+  const { t } = useLanguage();
   const cat = CATEGORY_MAP[provider.service_type];
   const initials = provider.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
 
   return (
-    <Link to={`/providers/${provider.id}`} className="block card active:shadow-md transition-shadow fade-in">
+    <Link to={`/providers/${provider.id}`} className="block card active:scale-[0.99] transition-transform fade-in">
       <div className="flex items-start gap-3">
-        <div className="avatar w-12 h-12 text-base flex-shrink-0" style={{ background: 'linear-gradient(135deg, #2563eb, #1d4ed8)' }}>
+        <div className="avatar w-12 h-12 text-base flex-shrink-0">
           {initials}
         </div>
         <div className="flex-1 min-w-0">
@@ -30,8 +30,8 @@ export default function ProviderCard({ provider }) {
               <h3 className="font-bold text-slate-900 text-[15px] leading-tight">{provider.name}</h3>
               <div className="flex items-center gap-1.5 mt-0.5">
                 <span className="text-base">{cat?.icon || '🛠️'}</span>
-                <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${cat?.bg || 'bg-blue-100'} ${cat?.text || 'text-blue-700'}`}>
-                  {isUrdu ? cat?.urdu : (cat?.label || provider.service_type)}
+                <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${cat?.bg || 'bg-green-100'} ${cat?.text || 'text-green-700'}`}>
+                  {cat?.label || provider.service_type}
                 </span>
               </div>
             </div>
@@ -44,7 +44,7 @@ export default function ProviderCard({ provider }) {
           <div className="flex items-center gap-2 mt-2">
             <Stars rating={provider.rating} />
             <span className="text-xs text-slate-500">{(provider.rating || 0).toFixed(1)} ({provider.total_reviews})</span>
-            <span className={`ml-auto text-[10px] font-semibold px-2 py-0.5 rounded-full ${provider.is_available ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+            <span className={`ml-auto text-[10px] font-bold px-2 py-0.5 rounded-full ${provider.is_available ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-600'}`}>
               {provider.is_available ? `● ${t('available')}` : `● ${t('notAvailable')}`}
             </span>
           </div>

@@ -9,15 +9,16 @@ function ConversationList({ conversations, onSelect }) {
 
   if (conversations.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-16 px-6 text-center">
-        <span className="text-5xl mb-4">💬</span>
-        <p className="font-semibold text-slate-700">{t('noConversations')}</p>
+      <div className="flex flex-col items-center justify-center py-20 px-6 text-center">
+        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center text-3xl mb-4">💬</div>
+        <p className="font-bold text-slate-700 text-base">No messages yet</p>
+        <p className="text-slate-400 text-sm mt-1">{t('noConversations')}</p>
       </div>
     );
   }
 
   return (
-    <div>
+    <div className="divide-y divide-slate-100 stagger">
       {conversations.map(conv => {
         const other = conv.other_user;
         const last = conv.last_message;
@@ -25,23 +26,27 @@ function ConversationList({ conversations, onSelect }) {
           <button
             key={conv.id}
             onClick={() => onSelect(conv)}
-            className="list-row w-full text-left"
+            className="w-full text-left flex items-center gap-3 px-4 py-3.5 active:bg-slate-50 transition-colors"
           >
-            <div className="avatar w-11 h-11 text-base flex-shrink-0">
+            <div className="avatar w-12 h-12 text-base flex-shrink-0">
               {other?.name?.[0] || '?'}
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between">
-                <span className="font-semibold text-slate-900 text-sm truncate">{other?.name}</span>
-                {last && <span className="text-[10px] text-slate-400 flex-shrink-0 ml-2">{new Date(last.created_at).toLocaleTimeString('en-PK', { hour: '2-digit', minute: '2-digit' })}</span>}
+                <span className="font-bold text-slate-900 text-sm truncate">{other?.name}</span>
+                {last && (
+                  <span className="text-[10px] text-slate-400 flex-shrink-0 ml-2">
+                    {new Date(last.created_at).toLocaleTimeString('en-PK', { hour: '2-digit', minute: '2-digit' })}
+                  </span>
+                )}
               </div>
               <p className="text-xs text-slate-500 truncate mt-0.5">
-                {last?.text || '...'}
+                {last?.text || 'Start a conversation'}
               </p>
             </div>
             {conv.unread_count > 0 && (
-              <span className="flex-shrink-0 bg-blue-600 text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center">
-                {conv.unread_count}
+              <span className="flex-shrink-0 bg-green-600 text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                {conv.unread_count > 9 ? '9+' : conv.unread_count}
               </span>
             )}
           </button>
@@ -51,14 +56,13 @@ function ConversationList({ conversations, onSelect }) {
   );
 }
 
-function MessageView({ convId, onBack }) {
+function MessageView({ convId }) {
   const { user } = useAuth();
   const { t } = useLanguage();
   const [data, setData] = useState(null);
   const [text, setText] = useState('');
   const [sending, setSending] = useState(false);
   const bottomRef = useRef(null);
-  const inputRef = useRef(null);
 
   const load = async () => {
     try {
@@ -90,27 +94,27 @@ function MessageView({ convId, onBack }) {
 
   if (!data) return (
     <div className="flex items-center justify-center py-12">
-      <div className="w-8 h-8 border-3 border-blue-600 border-t-transparent rounded-full animate-spin" />
+      <div className="w-8 h-8 border-3 border-green-600 border-t-transparent rounded-full animate-spin" />
     </div>
   );
 
   const other = data.conversation.other_user;
 
   return (
-    <div className="flex flex-col" style={{ height: 'calc(100dvh - var(--top-bar-h) - var(--safe-top) - var(--bottom-nav-h) - var(--safe-bottom))' }}>
+    <div className="flex flex-col" style={{ height: 'calc(100dvh - var(--bar-h) - var(--safe-t) - var(--nav-h) - var(--safe-b))' }}>
       {/* Chat header */}
       <div className="flex items-center gap-3 px-4 py-3 bg-white border-b border-slate-100 flex-shrink-0">
-        <div className="avatar w-9 h-9 text-sm">{other?.name?.[0] || '?'}</div>
-        <div>
+        <div className="avatar w-9 h-9 text-sm flex-shrink-0">{other?.name?.[0] || '?'}</div>
+        <div className="flex-1">
           <p className="font-bold text-slate-900 text-sm">{other?.name}</p>
-          <p className="text-[11px] text-green-500 font-medium">● Online</p>
+          <p className="text-[11px] text-green-500 font-medium">● Active</p>
         </div>
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto px-4 py-4 space-y-2 bg-slate-50">
+      <div className="flex-1 overflow-y-auto px-4 py-4 space-y-2 bg-slate-50 page-scroll">
         {data.messages.length === 0 && (
-          <div className="text-center text-slate-400 text-sm py-8">Say hello! 👋</div>
+          <div className="text-center text-slate-400 text-sm py-10">Say hello! 👋</div>
         )}
         {data.messages.map(msg => {
           const isMe = msg.sender_id === user.id;
@@ -118,7 +122,7 @@ function MessageView({ convId, onBack }) {
             <div key={msg.id} className={`flex ${isMe ? 'justify-end' : 'justify-start'}`}>
               <div className={isMe ? 'bubble-me' : 'bubble-other'}>
                 <p className="leading-relaxed">{msg.text}</p>
-                <p className={`text-[10px] mt-1 ${isMe ? 'text-blue-200' : 'text-slate-400'} text-right`}>
+                <p className={`text-[10px] mt-1 ${isMe ? 'text-green-200' : 'text-slate-400'} text-right`}>
                   {new Date(msg.created_at).toLocaleTimeString('en-PK', { hour: '2-digit', minute: '2-digit' })}
                 </p>
               </div>
@@ -129,20 +133,20 @@ function MessageView({ convId, onBack }) {
       </div>
 
       {/* Input */}
-      <form onSubmit={sendMsg} className="flex gap-2 px-4 py-3 bg-white border-t border-slate-100 flex-shrink-0">
+      <form onSubmit={sendMsg} className="flex items-center gap-2 px-4 py-3 bg-white border-t border-slate-100 flex-shrink-0">
         <input
-          ref={inputRef}
           value={text}
           onChange={e => setText(e.target.value)}
           placeholder={t('typeMessage')}
-          className="flex-1 bg-slate-100 rounded-2xl px-4 py-2.5 text-sm outline-none focus:bg-slate-50 focus:ring-2 focus:ring-blue-500"
+          className="flex-1 bg-slate-100 rounded-2xl px-4 py-2.5 text-sm outline-none focus:bg-white focus:ring-2 focus:ring-green-500 transition-all"
         />
         <button
           type="submit"
           disabled={!text.trim() || sending}
-          className="w-11 h-11 rounded-full bg-blue-600 text-white flex items-center justify-center flex-shrink-0 disabled:opacity-40 active:bg-blue-700 transition-colors"
+          className="w-11 h-11 rounded-full bg-green-600 text-white flex items-center justify-center flex-shrink-0 disabled:opacity-40 active:bg-green-700 transition-colors"
+          style={{ boxShadow: '0 4px 12px rgba(22,163,74,0.35)' }}
         >
-          <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+          <svg viewBox="0 0 24 24" className="w-5 h-5 -mr-0.5" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
             <line x1="22" y1="2" x2="11" y2="13" /><polygon points="22 2 15 22 11 13 2 9 22 2" />
           </svg>
         </button>
@@ -177,7 +181,7 @@ export default function ChatPage() {
   if (activeId) {
     return (
       <div className="fade-in">
-        <MessageView convId={activeId} onBack={() => { setActiveId(null); navigate('/chat'); }} />
+        <MessageView convId={activeId} />
       </div>
     );
   }
@@ -185,8 +189,8 @@ export default function ChatPage() {
   return (
     <div className="fade-in">
       {loading ? (
-        <div className="flex justify-center py-12">
-          <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
+        <div className="flex justify-center py-16">
+          <div className="w-8 h-8 border-4 border-green-600 border-t-transparent rounded-full animate-spin" />
         </div>
       ) : (
         <ConversationList conversations={conversations} onSelect={selectConv} />

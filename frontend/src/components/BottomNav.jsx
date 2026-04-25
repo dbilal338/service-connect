@@ -38,20 +38,20 @@ export default function BottomNav() {
 
   useEffect(() => {
     if (!user) return;
-    const fetch = () => axios.get('/api/chat/unread-count').then(r => setUnread(r.data.count)).catch(() => {});
-    fetch();
-    const iv = setInterval(fetch, 15000);
+    const fetchUnread = () => axios.get('/api/chat/unread-count').then(r => setUnread(r.data.count)).catch(() => {});
+    fetchUnread();
+    const iv = setInterval(fetchUnread, 15000);
     return () => clearInterval(iv);
   }, [user]);
 
   const profilePath = user?.role === 'provider' ? '/provider-dashboard' : '/dashboard';
 
   const tabs = [
-    { path: '/',       label: t('home'),    Icon: HomeIcon   },
-    { path: '/browse', label: t('browse'),  Icon: SearchIcon },
-    { path: '/offers', label: t('offers'),  Icon: TagIcon    },
-    { path: '/chat',   label: t('chat'),    Icon: ChatIcon, badge: unread > 0 ? unread : null, requiresAuth: true },
-    { path: profilePath, label: t('profile'), Icon: UserIcon, requiresAuth: true },
+    { path: '/',         label: t('home'),    Icon: HomeIcon   },
+    { path: '/browse',   label: t('browse'),  Icon: SearchIcon },
+    { path: '/offers',   label: t('offers'),  Icon: TagIcon    },
+    { path: '/chat',     label: t('chat'),    Icon: ChatIcon, badge: unread > 0 ? unread : null, requiresAuth: true },
+    { path: profilePath, label: t('profile'), Icon: UserIcon,  requiresAuth: true },
   ];
 
   const isActive = (path) => {
@@ -69,18 +69,21 @@ export default function BottomNav() {
             key={path}
             to={path}
             className={`flex-1 flex flex-col items-center justify-center gap-0.5 transition-colors ${
-              active ? 'text-blue-600' : 'text-slate-400'
+              active ? 'text-green-600' : 'text-slate-400'
             }`}
           >
+            {active && (
+              <span className="absolute top-0 w-8 h-0.5 bg-green-500 rounded-full" style={{ borderRadius: '0 0 4px 4px' }} />
+            )}
             <span className="relative">
               <Icon active={active} />
               {badge && (
-                <span className="absolute -top-1 -right-1.5 bg-red-500 text-white text-[10px] font-bold rounded-full min-w-[16px] h-4 flex items-center justify-center px-0.5 pulse-dot">
+                <span className="absolute -top-1 -right-1.5 bg-red-500 text-white text-[10px] font-bold rounded-full min-w-[16px] h-4 flex items-center justify-center px-0.5">
                   {badge > 9 ? '9+' : badge}
                 </span>
               )}
             </span>
-            <span className={`text-[10px] font-medium leading-none ${active ? 'text-blue-600' : 'text-slate-400'}`}>
+            <span className={`text-[10px] font-semibold leading-none ${active ? 'text-green-600' : 'text-slate-400'}`}>
               {label}
             </span>
           </NavLink>

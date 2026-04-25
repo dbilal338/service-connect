@@ -4,7 +4,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 
 export default function Navbar() {
   const { user } = useAuth();
-  const { t, lang, toggleLang } = useLanguage();
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -37,21 +37,15 @@ export default function Navbar() {
         </button>
       ) : (
         <div className="flex items-center gap-1.5 flex-shrink-0">
-          <div className="w-7 h-7 bg-blue-600 rounded-lg flex items-center justify-center text-white font-black text-xs select-none">SC</div>
+          <div className="w-7 h-7 bg-green-600 rounded-lg flex items-center justify-center text-white font-black text-xs select-none">SC</div>
         </div>
       )}
 
       <h1 className="flex-1 font-bold text-slate-900 text-[15px] text-center truncate px-2">{getTitle()}</h1>
 
       <div className="flex items-center gap-2 flex-shrink-0">
-        <button
-          onClick={toggleLang}
-          className="text-xs font-bold text-blue-600 bg-blue-50 px-2.5 py-1.5 rounded-lg active:bg-blue-100 transition-colors leading-none"
-        >
-          {lang === 'en' ? 'اردو' : 'EN'}
-        </button>
         {!user && !['/login', '/register'].includes(location.pathname) && (
-          <button onClick={() => navigate('/login')} className="text-xs font-bold text-white bg-blue-600 px-3 py-1.5 rounded-lg active:bg-blue-700">
+          <button onClick={() => navigate('/login')} className="text-xs font-bold text-white bg-green-600 px-3 py-1.5 rounded-lg active:bg-green-700">
             {t('login')}
           </button>
         )}
