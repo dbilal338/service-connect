@@ -22,10 +22,7 @@
     @apply bg-slate-50 text-slate-900;
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     height: 100%;
-    overflow-x: hidden;
-    -webkit-overflow-scrolling: touch;
-    padding-top: calc(var(--bar-h) + var(--safe-t));
-    padding-bottom: calc(var(--nav-h) + var(--safe-b));
+    overflow: hidden;
     -webkit-font-smoothing: antialiased;
   }
   input, select, textarea { font-size: 16px !important; font-family: inherit; }
@@ -164,7 +161,15 @@
 /* ─── Utilities ────────────────────────────────────────── */
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-.page-scroll { overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; }
+.page-scroll {
+  height: 100dvh;
+  padding-top: calc(var(--bar-h) + var(--safe-t));
+  padding-bottom: calc(var(--nav-h) + var(--safe-b));
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+  box-sizing: border-box;
+}
 .text-gradient {
   background: linear-gradient(135deg, #16a34a, #059669);
   -webkit-background-clip: text;

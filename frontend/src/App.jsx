@@ -33,7 +33,7 @@ function ProtectedRoute({ children, role }) {
 function AppRoutes() {
   const { user } = useAuth();
   return (
-    <div className="min-h-screen">
+    <div>
       <Navbar />
       <main className="page-scroll">
         <Routes>

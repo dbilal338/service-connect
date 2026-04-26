@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react';
 
 const STRINGS = {
-  appName: 'ServiceConnect', tagline: "Pakistan's #1 Service Marketplace",
+  appName: 'Karigarr', tagline: "Pakistan's #1 Service Marketplace",
   home: 'Home', browse: 'Browse', orders: 'Orders', chat: 'Messages', profile: 'Profile',
   offers: 'Packages', myOffers: 'My Packages',
   searchPlaceholder: 'Search Bijli Mistri, Plumber...', search: 'Search',
@@ -41,7 +41,7 @@ const STRINGS = {
   step1Title: 'Find a Pro', step1Desc: 'Browse verified professionals near you',
   step2Title: 'Book Instantly', step2Desc: 'Pick a time and confirm in seconds',
   step3Title: 'Job Done', step3Desc: 'Professional comes to your doorstep',
-  joinAsProvider: 'Earn with Your Skills', joinDesc: 'Join thousands of earners on ServiceConnect',
+  joinAsProvider: 'Earn with Your Skills', joinDesc: 'Join thousands of earners on Karigarr',
   signUpNow: 'Get Started Free',
   demoCredentials: 'Demo Accounts',
   providerDemo: 'Provider: ali@demo.com', consumerDemo: 'Customer: ahmed@demo.com',

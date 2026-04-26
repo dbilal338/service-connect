@@ -1,14 +1,14 @@
 {
-  "name": "سروس کنیکٹ - Service Connect",
-  "short_name": "ServiceConnect",
-  "description": "Pakistan's #1 Local Service Marketplace - گھریلو اور تجارتی خدمات",
+  "name": "Karigarr",
+  "short_name": "Karigarr",
+  "description": "Pakistan's #1 Local Service Marketplace — Bijli Mistri, Plumber, Carpenter, AC Mechanic and more",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "background_color": "#1d4ed8",
   "theme_color": "#1d4ed8",
   "orientation": "portrait-primary",
-  "lang": "ur-PK",
+  "lang": "en-PK",
   "categories": ["utilities", "business", "lifestyle"],
   "icons": [
     { "src": "/icon-192.svg", "sizes": "192x192", "type": "image/svg+xml", "purpose": "any" },
