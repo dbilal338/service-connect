@@ -172,21 +172,28 @@ export default function Home() {
       )}
 
       {/* Footer */}
-      <footer className="px-4 pb-6 pt-2 border-t border-slate-100">
-        <div className="flex items-center justify-center gap-1.5 mb-3">
+      <footer className="px-4 pb-6 pt-4 border-t border-slate-100">
+        <div className="flex items-center justify-center gap-1.5 mb-1">
           <div className="w-6 h-6 bg-green-600 rounded-lg flex items-center justify-center text-white font-black text-[11px]">K</div>
-          <span className="font-black text-slate-800 text-sm">Karigarr</span>
-          <span className="text-slate-400 text-xs">· Pakistan's #1 Service Marketplace</span>
+          <span className="font-black text-slate-800 text-sm">Karigarr Technologies</span>
         </div>
+        <p className="text-center text-[11px] text-slate-400 mb-3">Pakistan's #1 Service Marketplace</p>
+
+        <div className="flex flex-col items-center gap-1 mb-3 text-[11px] text-slate-500">
+          <a href="mailto:dbilal338@gmail.com" className="hover:text-green-600">dbilal338@gmail.com</a>
+          <a href="tel:+923087117110" className="hover:text-green-600">+92 308 711 7110</a>
+          <span>Basirpur, Punjab, Pakistan</span>
+        </div>
+
         <div className="flex items-center justify-center gap-4 mb-3">
-          <Link to="/terms"   className="text-xs font-semibold text-green-600 active:text-green-800">Terms of Service</Link>
+          <Link to="/terms"   className="text-xs font-semibold text-green-600 active:text-green-800">Terms</Link>
           <span className="text-slate-300 text-xs">|</span>
-          <Link to="/privacy" className="text-xs font-semibold text-green-600 active:text-green-800">Privacy Policy</Link>
+          <Link to="/privacy" className="text-xs font-semibold text-green-600 active:text-green-800">Privacy</Link>
           <span className="text-slate-300 text-xs">|</span>
           <Link to="/refund"  className="text-xs font-semibold text-green-600 active:text-green-800">Refund Policy</Link>
         </div>
         <p className="text-center text-[11px] text-slate-400">
-          © {new Date().getFullYear()} Karigarr.store — Karachi, Pakistan
+          © {new Date().getFullYear()} Karigarr Technologies
         </p>
       </footer>
     </div>
