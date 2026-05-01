@@ -185,6 +185,18 @@ export default function Home() {
           <span>Basirpur, Punjab, Pakistan</span>
         </div>
 
+        <div className="flex items-center justify-center mb-3">
+          <a href="https://instagram.com/karigarr.pk" target="_blank" rel="noopener noreferrer"
+            className="flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-pink-600 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <circle cx="12" cy="12" r="4"/>
+              <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+            </svg>
+            @karigarr.pk
+          </a>
+        </div>
+
         <div className="flex items-center justify-center gap-4 mb-3">
           <Link to="/terms"   className="text-xs font-semibold text-green-600 active:text-green-800">Terms</Link>
           <span className="text-slate-300 text-xs">|</span>
