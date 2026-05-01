@@ -41,7 +41,7 @@ export default function Navbar() {
         </button>
       ) : (
         <div className="flex items-center flex-shrink-0">
-          <img src="/logo.png" alt="Karigarr" className="w-8 h-8 rounded-lg object-contain" />
+          <img src="/logo.png" alt="Karigarr" className="h-11 w-auto rounded-lg object-contain" />
         </div>
       )}
 

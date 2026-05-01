@@ -1,15 +1,22 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
 
 export default function Login() {
-  const { login } = useAuth();
+  const { login, user, loading: authLoading } = useAuth();
   const { t } = useLanguage();
   const navigate = useNavigate();
   const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
+  // Redirect already-authenticated users (handles page refresh while logged in)
+  useEffect(() => {
+    if (!authLoading && user) {
+      navigate(user.role === 'provider' ? '/provider-dashboard' : '/dashboard', { replace: true });
+    }
+  }, [user, authLoading, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,7 +36,7 @@ export default function Login() {
     <div className="fade-in">
       {/* Branded header */}
       <div className="px-5 pt-8 pb-8 text-center" style={{ background: 'linear-gradient(160deg, #0f172a, #14532d)' }}>
-        <div className="w-14 h-14 bg-green-600 rounded-2xl flex items-center justify-center text-white font-black text-xl mx-auto mb-3" style={{ boxShadow: '0 8px 24px rgba(22,163,74,0.4)' }}>SC</div>
+        <img src="/logo.png" alt="Karigarr" className="h-20 w-auto mx-auto mb-3 rounded-2xl object-contain" style={{ boxShadow: '0 8px 24px rgba(22,163,74,0.4)' }} />
         <h1 className="text-white text-xl font-bold">{t('appName')}</h1>
         <p className="text-slate-400 text-sm mt-1">{t('tagline')}</p>
       </div>
