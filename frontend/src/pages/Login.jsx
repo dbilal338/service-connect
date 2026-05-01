@@ -31,8 +31,6 @@ export default function Login() {
     } finally { setLoading(false); }
   };
 
-  const quickLogin = (email) => setForm({ email, password: 'password123' });
-
   const handleGoogleLogin = async () => {
     setGoogleLoading(true);
     setError('');
@@ -111,18 +109,6 @@ export default function Login() {
             )}
             {googleLoading ? 'Signing in…' : 'Continue with Google'}
           </button>
-
-          {/* Demo accounts */}
-          <div className="mt-5 p-4 rounded-2xl" style={{ background: 'linear-gradient(135deg, #fffbeb, #fef3c7)', border: '1px solid #fde68a' }}>
-            <p className="text-xs font-bold text-amber-800 mb-2">🎭 {t('demoCredentials')}</p>
-            <button onClick={() => quickLogin('ali@demo.com')} className="w-full text-left text-xs text-amber-700 py-2 px-2.5 rounded-xl active:bg-amber-100 transition-colors flex items-center gap-2">
-              🛠️ <span>{t('providerDemo')}</span>
-            </button>
-            <button onClick={() => quickLogin('ahmed@demo.com')} className="w-full text-left text-xs text-amber-700 py-2 px-2.5 rounded-xl active:bg-amber-100 transition-colors flex items-center gap-2">
-              👤 <span>{t('consumerDemo')}</span>
-            </button>
-            <p className="text-[11px] text-amber-600 mt-1.5 px-2.5 font-semibold">{t('demoPassword')}</p>
-          </div>
 
           <p className="text-center text-sm text-slate-500 mt-5">
             New here? <Link to="/register" className="text-green-600 font-bold">{t('register')}</Link>
