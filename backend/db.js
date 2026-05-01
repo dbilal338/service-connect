@@ -13,6 +13,7 @@ const FILES = {
   conversations: path.join(DATA_DIR, 'conversations.json'),
   messages:      path.join(DATA_DIR, 'messages.json'),
   offers:        path.join(DATA_DIR, 'offers.json'),
+  team_members:  path.join(DATA_DIR, 'team_members.json'),
 };
 
 const load = (file) => { try { return JSON.parse(fs.readFileSync(file, 'utf8')); } catch { return []; } };
@@ -49,6 +50,7 @@ const db = {
   conversations: new Table(FILES.conversations),
   messages:      new Table(FILES.messages),
   offers:        new Table(FILES.offers),
+  team_members:  new Table(FILES.team_members),
 };
 
 function seedData() {
