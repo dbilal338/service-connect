@@ -14,6 +14,10 @@ import ProviderDashboard from './pages/ProviderDashboard';
 import OrderDetail from './pages/OrderDetail';
 import ChatPage from './pages/ChatPage';
 import OffersPage from './pages/OffersPage';
+import Terms from './pages/Terms';
+import Privacy from './pages/Privacy';
+import Refund from './pages/Refund';
+import Admin from './pages/Admin';
 
 function ProtectedRoute({ children, role }) {
   const { user, loading } = useAuth();
@@ -31,7 +35,6 @@ function ProtectedRoute({ children, role }) {
 }
 
 function AppRoutes() {
-  const { user } = useAuth();
   return (
     <div>
       <Navbar />
@@ -43,6 +46,10 @@ function AppRoutes() {
           <Route path="/browse"              element={<Browse />} />
           <Route path="/offers"              element={<OffersPage />} />
           <Route path="/providers/:id"       element={<ProviderProfile />} />
+          <Route path="/terms"               element={<Terms />} />
+          <Route path="/privacy"             element={<Privacy />} />
+          <Route path="/refund"              element={<Refund />} />
+          <Route path="/admin"               element={<Admin />} />
           <Route path="/chat"                element={<ProtectedRoute><ChatPage /></ProtectedRoute>} />
           <Route path="/chat/:id"            element={<ProtectedRoute><ChatPage /></ProtectedRoute>} />
           <Route path="/dashboard"           element={<ProtectedRoute role="consumer"><ConsumerDashboard /></ProtectedRoute>} />
@@ -50,7 +57,7 @@ function AppRoutes() {
           <Route path="/orders/:id"          element={<ProtectedRoute><OrderDetail /></ProtectedRoute>} />
         </Routes>
       </main>
-      {user && <BottomNav />}
+      <BottomNav />
       <InstallPrompt />
     </div>
   );

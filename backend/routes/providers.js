@@ -8,7 +8,8 @@ const enrichProvider = (user) => {
   const profile = db.profiles.findOne(p => p.user_id === user.id);
   if (!profile) return null;
   const { password, ...safeUser } = user;
-  return { ...safeUser, ...profile, profile_id: profile.id };
+  // spread safeUser last so id = user.id (needed for /providers/:id and chat)
+  return { ...profile, ...safeUser, profile_id: profile.id };
 };
 
 router.get('/dashboard/stats', authMiddleware, (req, res) => {

@@ -1,4 +1,4 @@
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useState, useEffect } from 'react';
@@ -34,6 +34,7 @@ export default function BottomNav() {
   const { user } = useAuth();
   const { t } = useLanguage();
   const location = useLocation();
+  const navigate = useNavigate();
   const [unread, setUnread] = useState(0);
 
   useEffect(() => {
@@ -47,11 +48,11 @@ export default function BottomNav() {
   const profilePath = user?.role === 'provider' ? '/provider-dashboard' : '/dashboard';
 
   const tabs = [
-    { path: '/',         label: t('home'),    Icon: HomeIcon   },
-    { path: '/browse',   label: t('browse'),  Icon: SearchIcon },
-    { path: '/offers',   label: t('offers'),  Icon: TagIcon    },
-    { path: '/chat',     label: t('chat'),    Icon: ChatIcon, badge: unread > 0 ? unread : null, requiresAuth: true },
-    { path: profilePath, label: t('profile'), Icon: UserIcon,  requiresAuth: true },
+    { path: '/',         label: t('home'),     Icon: HomeIcon,   requiresAuth: false },
+    { path: '/browse',   label: t('browse'),   Icon: SearchIcon, requiresAuth: false },
+    { path: '/offers',   label: t('offers'),   Icon: TagIcon,    requiresAuth: false },
+    { path: '/chat',     label: t('chat'),     Icon: ChatIcon,   badge: unread > 0 ? unread : null, requiresAuth: true },
+    { path: profilePath, label: t('profile'),  Icon: UserIcon,   requiresAuth: true },
   ];
 
   const isActive = (path) => {
@@ -59,15 +60,22 @@ export default function BottomNav() {
     return location.pathname.startsWith(path);
   };
 
+  const handleTabClick = (e, tab) => {
+    if (tab.requiresAuth && !user) {
+      e.preventDefault();
+      navigate('/login');
+    }
+  };
+
   return (
     <nav className="bottom-nav">
       {tabs.map(({ path, label, Icon, badge, requiresAuth }) => {
-        if (requiresAuth && !user) return null;
         const active = isActive(path);
         return (
           <NavLink
             key={path}
             to={path}
+            onClick={(e) => handleTabClick(e, { requiresAuth })}
             className={`flex-1 flex flex-col items-center justify-center gap-0.5 transition-colors ${
               active ? 'text-green-600' : 'text-slate-400'
             }`}

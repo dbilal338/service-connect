@@ -57,16 +57,16 @@ function seedData() {
   const hash = bcrypt.hashSync('password123', 10);
 
   const providers = [
-    { name: 'Muhammad Ali', email: 'ali@demo.com', phone: '0300-1234501', service: 'bijli_mistri', rate: 800, exp: 8, loc: 'Karachi', desc: 'بجلی کے تمام کام - وائرنگ، میٹر، سوئچ بورڈ۔ 8 سال تجربہ۔ گھریلو اور تجارتی بجلی کے کام۔', rating: 4.8, reviews: 42 },
-    { name: 'Abdul Rahman', email: 'rahman@demo.com', phone: '0300-1234502', service: 'plumber', rate: 600, exp: 12, loc: 'Lahore', desc: 'پائپ لائن، لیکیج، نل، ٹینکی فٹنگ۔ گھریلو اور تجارتی پلمبنگ کے تمام کام۔ فوری سروس دستیاب۔', rating: 4.9, reviews: 87 },
-    { name: 'Shahid Mehmood', email: 'shahid@demo.com', phone: '0300-1234503', service: 'carpenter', rate: 1200, exp: 15, loc: 'Islamabad', desc: 'فرنیچر، الماری، دروازے، کھڑکیاں۔ اعلی معیار کی لکڑی کا کام۔ گھر اور آفس فرنیچر۔', rating: 4.7, reviews: 31 },
-    { name: 'Farhan Khan', email: 'farhan@demo.com', phone: '0300-1234504', service: 'painter', rate: 500, exp: 10, loc: 'Rawalpindi', desc: 'گھر، آفس، دکان کا رنگ و روغن۔ اندرونی اور بیرونی پینٹنگ۔ اعلی معیار کا رنگ استعمال۔', rating: 4.6, reviews: 19 },
-    { name: 'Imran Sheikh', email: 'imran@demo.com', phone: '0300-1234505', service: 'ac_mechanic', rate: 1500, exp: 9, loc: 'Karachi', desc: 'AC سروسنگ، مرمت، انسٹالیشن۔ تمام برانڈ۔ گیس چارجنگ، کمپریسر تبدیلی، فلٹر صفائی۔', rating: 4.5, reviews: 56 },
-    { name: 'Zubair Ahmed', email: 'zubair@demo.com', phone: '0300-1234506', service: 'gardener', rate: 400, exp: 11, loc: 'Lahore', desc: 'باغ کی دیکھ بھال، پودے لگانا، گھاس کاٹنا، درخت ٹرمنگ۔ گھریلو اور کمرشل باغبانی۔', rating: 4.4, reviews: 44 },
-    { name: 'Nasir Hussain', email: 'nasir@demo.com', phone: '0300-1234507', service: 'cleaner', rate: 350, exp: 7, loc: 'Islamabad', desc: 'گھر کی صفائی، آفس صفائی، ڈیپ کلیننگ۔ ماہر اور قابل اعتماد۔ اپنے آلات ساتھ لاتے ہیں۔', rating: 4.9, reviews: 67 },
-    { name: 'Tariq Mahmood', email: 'tariq@demo.com', phone: '0300-1234508', service: 'driver', rate: 700, exp: 5, loc: 'Karachi', desc: 'ذاتی ڈرائیور، آفس ڈراپ، ائیرپورٹ ٹرانسفر۔ شائستہ اور ماہر۔ اپنی گاڑی دستیاب نہیں۔', rating: 4.7, reviews: 15 },
-    { name: 'Khalid Anwar', email: 'khalid@demo.com', phone: '0300-1234509', service: 'cook', rate: 900, exp: 14, loc: 'Lahore', desc: 'پاکستانی، مغلائی، چینی کھانے۔ پارٹی کیٹرنگ، گھریلو کھانا۔ تمام قسم کے کھانے بناتے ہیں۔', rating: 4.8, reviews: 38 },
-    { name: 'Asif Ali', email: 'asif@demo.com', phone: '0300-1234510', service: 'tutor', rate: 500, exp: 6, loc: 'Rawalpindi', desc: 'میتھس، سائنس، انگلش، کمپیوٹر۔ میٹرک سے گریجویشن تک۔ گھر پر آ کر پڑھاتے ہیں۔', rating: 4.6, reviews: 29 },
+    { name: 'Muhammad Ali', email: 'ali@demo.com', phone: '0300-1234501', service: 'bijli_mistri', rate: 800, exp: 8, loc: 'Karachi', desc: 'All electrical work — wiring, meter installation, switchboards. 8 years experience. Residential and commercial electrical work.', rating: 4.8, reviews: 42 },
+    { name: 'Abdul Rahman', email: 'rahman@demo.com', phone: '0300-1234502', service: 'plumber', rate: 600, exp: 12, loc: 'Lahore', desc: 'Pipe fitting, leak repair, taps, water tank installation. All residential and commercial plumbing. Fast service available.', rating: 4.9, reviews: 87 },
+    { name: 'Shahid Mehmood', email: 'shahid@demo.com', phone: '0300-1234503', service: 'carpenter', rate: 1200, exp: 15, loc: 'Islamabad', desc: 'Furniture, wardrobes, doors, windows. High-quality woodwork. Home and office furniture.', rating: 4.7, reviews: 31 },
+    { name: 'Farhan Khan', email: 'farhan@demo.com', phone: '0300-1234504', service: 'painter', rate: 500, exp: 10, loc: 'Rawalpindi', desc: 'Home, office, and shop painting. Interior and exterior work. Premium quality paints used.', rating: 4.6, reviews: 19 },
+    { name: 'Imran Sheikh', email: 'imran@demo.com', phone: '0300-1234505', service: 'ac_mechanic', rate: 1500, exp: 9, loc: 'Karachi', desc: 'AC servicing, repair, and installation. All brands. Gas charging, compressor replacement, filter cleaning.', rating: 4.5, reviews: 56 },
+    { name: 'Zubair Ahmed', email: 'zubair@demo.com', phone: '0300-1234506', service: 'gardener', rate: 400, exp: 11, loc: 'Lahore', desc: 'Garden maintenance, planting, lawn mowing, tree trimming. Residential and commercial gardening.', rating: 4.4, reviews: 44 },
+    { name: 'Nasir Hussain', email: 'nasir@demo.com', phone: '0300-1234507', service: 'cleaner', rate: 350, exp: 7, loc: 'Islamabad', desc: 'Home cleaning, office cleaning, deep cleaning. Professional and trustworthy. Brings own equipment.', rating: 4.9, reviews: 67 },
+    { name: 'Tariq Mahmood', email: 'tariq@demo.com', phone: '0300-1234508', service: 'driver', rate: 700, exp: 5, loc: 'Karachi', desc: 'Personal driver, office drop, airport transfer. Courteous and skilled. Own vehicle not included.', rating: 4.7, reviews: 15 },
+    { name: 'Khalid Anwar', email: 'khalid@demo.com', phone: '0300-1234509', service: 'cook', rate: 900, exp: 14, loc: 'Lahore', desc: 'Pakistani, Mughlai, and Chinese cuisine. Party catering, home cooking. All types of dishes prepared.', rating: 4.8, reviews: 38 },
+    { name: 'Asif Ali', email: 'asif@demo.com', phone: '0300-1234510', service: 'tutor', rate: 500, exp: 6, loc: 'Rawalpindi', desc: 'Maths, Science, English, Computer. Matric to graduation level. Home visits available.', rating: 4.6, reviews: 29 },
   ];
 
   providers.forEach(p => {
@@ -79,14 +79,14 @@ function seedData() {
   // Seed some demo offers
   const provUsers = db.users.findAll(u => u.role === 'provider');
   const offerData = [
-    { idx: 0, title: 'پنکھا انسٹالیشن', desc: 'سیلنگ فین لگانا', price: 500, cat: 'bijli_mistri' },
-    { idx: 0, title: 'سوئچ بورڈ تبدیلی', desc: 'نیا سوئچ بورڈ لگانا', price: 800, cat: 'bijli_mistri' },
-    { idx: 1, title: 'نل تبدیلی', desc: 'گھر کا نل تبدیل کرنا', price: 400, cat: 'plumber' },
-    { idx: 1, title: 'پائپ لیکیج', desc: 'لیکیج پائپ کی مرمت', price: 600, cat: 'plumber' },
-    { idx: 4, title: 'AC سروسنگ', desc: 'ایک ٹن AC کی مکمل سروسنگ', price: 1500, cat: 'ac_mechanic' },
-    { idx: 4, title: 'AC گیس چارجنگ', desc: 'AC میں گیس بھرنا', price: 2500, cat: 'ac_mechanic' },
-    { idx: 2, title: 'الماری مرمت', desc: 'لکڑی کی الماری ٹھیک کرنا', price: 800, cat: 'carpenter' },
-    { idx: 3, title: 'ایک کمرہ پینٹ', desc: 'ایک کمرے کی پینٹنگ', price: 3500, cat: 'painter' },
+    { idx: 0, title: 'Ceiling Fan Installation', desc: 'Install a ceiling fan including wiring and fitting', price: 500, cat: 'bijli_mistri' },
+    { idx: 0, title: 'Switchboard Replacement', desc: 'Replace old switchboard with new one', price: 800, cat: 'bijli_mistri' },
+    { idx: 1, title: 'Tap Replacement', desc: 'Replace a household water tap', price: 400, cat: 'plumber' },
+    { idx: 1, title: 'Pipe Leak Repair', desc: 'Fix a leaking water pipe', price: 600, cat: 'plumber' },
+    { idx: 4, title: 'AC Full Service', desc: 'Complete servicing of a 1-ton AC unit', price: 1500, cat: 'ac_mechanic' },
+    { idx: 4, title: 'AC Gas Refill', desc: 'Recharge AC refrigerant gas', price: 2500, cat: 'ac_mechanic' },
+    { idx: 2, title: 'Wardrobe Repair', desc: 'Fix a wooden wardrobe', price: 800, cat: 'carpenter' },
+    { idx: 3, title: 'One Room Painting', desc: 'Full paint job for one room', price: 3500, cat: 'painter' },
   ];
 
   offerData.forEach(o => {

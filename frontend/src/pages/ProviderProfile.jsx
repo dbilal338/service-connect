@@ -45,7 +45,9 @@ export default function ProviderProfile() {
     try {
       const r = await axios.post('/api/chat/conversations/start', { other_user_id: Number(id) });
       navigate(`/chat/${r.data.id}`);
-    } catch { /* ignore */ }
+    } catch (err) {
+      setError(err.response?.data?.error || 'Could not start chat. Please try again.');
+    }
   };
 
   const submitOrder = async (e) => {
@@ -105,8 +107,8 @@ export default function ProviderProfile() {
         </div>
       </div>
 
-      {/* Action buttons */}
-      {user && user.role === 'consumer' && (
+      {/* Action buttons — visible to everyone; auth-gated actions redirect to login */}
+      {(!user || user.id !== Number(id)) && (
         <div className="flex gap-2 px-4 py-3 bg-white border-b border-slate-100">
           <button onClick={startChat} className="flex-1 flex items-center justify-center gap-1.5 py-2.5 bg-slate-100 text-slate-700 font-bold text-sm rounded-xl active:bg-slate-200 transition-colors">
             💬 {t('chatNow')}
@@ -114,13 +116,15 @@ export default function ProviderProfile() {
           <a href={`tel:${provider.phone}`} className="flex-1 flex items-center justify-center gap-1.5 py-2.5 bg-slate-100 text-slate-700 font-bold text-sm rounded-xl active:bg-slate-200 transition-colors">
             📞 {t('callNow')}
           </a>
-          <button
-            onClick={() => setShowBookForm(!showBookForm)}
-            disabled={!provider.is_available}
-            className="flex-1 flex items-center justify-center gap-1.5 py-2.5 bg-green-600 text-white font-bold text-sm rounded-xl active:bg-green-700 disabled:opacity-50 transition-colors"
-          >
-            📋 {t('bookNow')}
-          </button>
+          {(!user || user.role === 'consumer') && (
+            <button
+              onClick={() => { if (!user) return navigate('/login'); setShowBookForm(!showBookForm); }}
+              disabled={user && !provider.is_available}
+              className="flex-1 flex items-center justify-center gap-1.5 py-2.5 bg-green-600 text-white font-bold text-sm rounded-xl active:bg-green-700 disabled:opacity-50 transition-colors"
+            >
+              📋 {t('bookNow')}
+            </button>
+          )}
         </div>
       )}
 

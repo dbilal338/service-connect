@@ -8,8 +8,8 @@ export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const rootPaths = ['/', '/browse', '/offers', '/chat', '/dashboard', '/provider-dashboard', '/login', '/register'];
-  const isRoot = rootPaths.some(p => location.pathname === p);
+  const rootPaths = ['/', '/browse', '/offers', '/chat', '/dashboard', '/provider-dashboard', '/login', '/register', '/terms', '/privacy', '/refund'];
+  const isRoot = rootPaths.some(p => location.pathname === p || location.pathname.startsWith(p + '/'));
   const showBack = !isRoot;
 
   const getTitle = () => {
@@ -24,6 +24,10 @@ export default function Navbar() {
     if (p.startsWith('/providers/')) return t('profile');
     if (p.startsWith('/login')) return t('login');
     if (p.startsWith('/register')) return t('register');
+    if (p.startsWith('/terms')) return 'Terms of Service';
+    if (p.startsWith('/privacy')) return 'Privacy Policy';
+    if (p.startsWith('/refund')) return 'Refund Policy';
+    if (p.startsWith('/admin')) return 'Admin Panel';
     return t('appName');
   };
 
