@@ -15,6 +15,11 @@ app.use('/api/admin',     require('./routes/admin'));
 
 app.get('/api/health', (_, res) => res.json({ status: 'ok' }));
 
+app.get('/sitemap.xml', (req, res) => {
+  res.setHeader('Content-Type', 'application/xml');
+  res.sendFile(path.join(__dirname, '../frontend/public/sitemap.xml'));
+});
+
 const distPath = path.join(__dirname, '../frontend/dist');
 
 app.use(express.static(distPath, {

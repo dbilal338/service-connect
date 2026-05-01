@@ -36,6 +36,23 @@ router.post('/login', (req, res) => {
   res.json({ token, user: safeUser });
 });
 
+router.post('/google', (req, res) => {
+  const { email, name, firebase_uid } = req.body;
+  if (!email || !firebase_uid) return res.status(400).json({ error: 'Missing required fields' });
+
+  let user = db.users.findOne(u => u.firebase_uid === firebase_uid || u.email === email);
+
+  if (!user) {
+    user = db.users.insert({ name: name || email.split('@')[0], email, firebase_uid, password: null, phone: null, role: 'consumer' });
+  } else if (!user.firebase_uid) {
+    user = db.users.update(user.id, { firebase_uid });
+  }
+
+  const token = jwt.sign({ id: user.id, role: user.role }, JWT_SECRET, { expiresIn: '7d' });
+  const { password: _, ...safeUser } = user;
+  res.json({ token, user: safeUser });
+});
+
 router.get('/me', authMiddleware, (req, res) => {
   const user = db.users.findById(req.user.id);
   if (!user) return res.status(404).json({ error: 'User not found' });
