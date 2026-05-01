@@ -170,6 +170,25 @@ export default function Home() {
           </div>
         </section>
       )}
+
+      {/* Footer */}
+      <footer className="px-4 pb-6 pt-2 border-t border-slate-100">
+        <div className="flex items-center justify-center gap-1.5 mb-3">
+          <div className="w-6 h-6 bg-green-600 rounded-lg flex items-center justify-center text-white font-black text-[11px]">K</div>
+          <span className="font-black text-slate-800 text-sm">Karigarr</span>
+          <span className="text-slate-400 text-xs">· Pakistan's #1 Service Marketplace</span>
+        </div>
+        <div className="flex items-center justify-center gap-4 mb-3">
+          <Link to="/terms"   className="text-xs font-semibold text-green-600 active:text-green-800">Terms of Service</Link>
+          <span className="text-slate-300 text-xs">|</span>
+          <Link to="/privacy" className="text-xs font-semibold text-green-600 active:text-green-800">Privacy Policy</Link>
+          <span className="text-slate-300 text-xs">|</span>
+          <Link to="/refund"  className="text-xs font-semibold text-green-600 active:text-green-800">Refund Policy</Link>
+        </div>
+        <p className="text-center text-[11px] text-slate-400">
+          © {new Date().getFullYear()} Karigarr.store — Karachi, Pakistan
+        </p>
+      </footer>
     </div>
   );
 }

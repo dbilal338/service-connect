@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 export default function Refund() {
   return (
     <div className="fade-in pb-8">
@@ -83,9 +85,9 @@ export default function Refund() {
       </div>
 
       <div className="px-4 pb-4 flex gap-4 text-xs text-slate-400 justify-center">
-        <a href="/terms" className="text-green-600 font-semibold">Terms of Service</a>
+        <Link to="/terms" className="text-green-600 font-semibold">Terms of Service</Link>
         <span>•</span>
-        <a href="/privacy" className="text-green-600 font-semibold">Privacy Policy</a>
+        <Link to="/privacy" className="text-green-600 font-semibold">Privacy Policy</Link>
       </div>
     </div>
   );

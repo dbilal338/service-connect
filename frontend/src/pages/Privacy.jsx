@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 export default function Privacy() {
   return (
     <div className="fade-in pb-8">
@@ -83,9 +85,9 @@ export default function Privacy() {
       </div>
 
       <div className="px-4 pb-4 flex gap-4 text-xs text-slate-400 justify-center">
-        <a href="/terms" className="text-green-600 font-semibold">Terms of Service</a>
+        <Link to="/terms" className="text-green-600 font-semibold">Terms of Service</Link>
         <span>•</span>
-        <a href="/refund" className="text-green-600 font-semibold">Refund Policy</a>
+        <Link to="/refund" className="text-green-600 font-semibold">Refund Policy</Link>
       </div>
     </div>
   );
