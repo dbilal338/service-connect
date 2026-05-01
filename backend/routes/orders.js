@@ -11,9 +11,7 @@ const enrichOrder = (order, role) => {
   return {
     ...order,
     consumer_name: consumer?.name,
-    consumer_phone: consumer?.phone,
     provider_name: provider?.name,
-    provider_phone: provider?.phone,
     service_type: profile?.service_type,
     hourly_rate: profile?.hourly_rate,
   };

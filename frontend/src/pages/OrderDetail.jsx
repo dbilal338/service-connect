@@ -74,7 +74,6 @@ export default function OrderDetail() {
   const isProvider = user.id === order.provider_id;
   const cat = CATEGORY_MAP[order.service_type];
   const otherName = isConsumer ? order.provider_name : order.consumer_name;
-  const otherPhone = isConsumer ? order.provider_phone : order.consumer_phone;
 
   return (
     <div className="fade-in pb-8">
@@ -149,7 +148,6 @@ export default function OrderDetail() {
           <div className="avatar w-11 h-11 text-sm">{otherName?.[0] || '?'}</div>
           <div className="flex-1">
             <p className="font-bold text-slate-900 text-sm">{otherName}</p>
-            <a href={`tel:${otherPhone}`} className="text-green-600 text-xs font-medium">📞 {otherPhone}</a>
           </div>
           <span className="text-xs text-slate-400 bg-slate-100 px-2.5 py-1 rounded-full">{isConsumer ? 'Provider' : 'Client'}</span>
         </div>

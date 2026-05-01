@@ -16,7 +16,6 @@ export default function OrderCard({ order, role }) {
   const { t } = useLanguage();
   const cfg = STATUS_CFG[order.status] || STATUS_CFG.pending;
   const otherName = role === 'consumer' ? order.provider_name : order.consumer_name;
-  const phone = role === 'consumer' ? order.provider_phone : order.consumer_phone;
   const cat = CATEGORY_MAP[order.service_type];
 
   return (
@@ -42,12 +41,6 @@ export default function OrderCard({ order, role }) {
             <p className="text-[11px] text-slate-400">📍 {order.address?.slice(0, 30)}{order.address?.length > 30 ? '…' : ''}</p>
             <p className="text-[11px] text-slate-400">{new Date(order.created_at).toLocaleDateString('en-PK')}</p>
           </div>
-          {phone && (
-            <a href={`tel:${phone}`} onClick={e => e.stopPropagation()}
-              className="inline-flex items-center gap-1 text-xs text-green-600 mt-1.5 font-medium">
-              📞 {phone}
-            </a>
-          )}
         </div>
       </div>
     </Link>

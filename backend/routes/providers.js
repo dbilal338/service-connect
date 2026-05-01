@@ -7,7 +7,7 @@ const router = express.Router();
 const enrichProvider = (user) => {
   const profile = db.profiles.findOne(p => p.user_id === user.id);
   if (!profile) return null;
-  const { password, ...safeUser } = user;
+  const { password, phone, ...safeUser } = user;
   // spread safeUser last so id = user.id (needed for /providers/:id and chat)
   return { ...profile, ...safeUser, profile_id: profile.id };
 };
@@ -27,7 +27,7 @@ router.get('/dashboard/stats', authMiddleware, (req, res) => {
   let enrichedActive = null;
   if (activeOrder) {
     const consumer = db.users.findById(activeOrder.consumer_id);
-    enrichedActive = { ...activeOrder, consumer_name: consumer?.name, consumer_phone: consumer?.phone };
+    enrichedActive = { ...activeOrder, consumer_name: consumer?.name };
   }
 
   res.json({ stats, activeOrder: enrichedActive });

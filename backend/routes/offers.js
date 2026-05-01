@@ -17,7 +17,6 @@ router.get('/', (req, res) => {
       provider_name: user?.name,
       provider_rating: profile?.rating,
       provider_location: profile?.location,
-      provider_phone: user?.phone,
       provider_reviews: profile?.total_reviews,
     };
   });

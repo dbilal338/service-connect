@@ -113,9 +113,6 @@ export default function ProviderProfile() {
           <button onClick={startChat} className="flex-1 flex items-center justify-center gap-1.5 py-2.5 bg-slate-100 text-slate-700 font-bold text-sm rounded-xl active:bg-slate-200 transition-colors">
             💬 {t('chatNow')}
           </button>
-          <a href={`tel:${provider.phone}`} className="flex-1 flex items-center justify-center gap-1.5 py-2.5 bg-slate-100 text-slate-700 font-bold text-sm rounded-xl active:bg-slate-200 transition-colors">
-            📞 {t('callNow')}
-          </a>
           {(!user || user.role === 'consumer') && (
             <button
               onClick={() => { if (!user) return navigate('/login'); setShowBookForm(!showBookForm); }}
