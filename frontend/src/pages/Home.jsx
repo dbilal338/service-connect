@@ -174,7 +174,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="px-4 pb-6 pt-4 border-t border-slate-100">
         <div className="flex items-center justify-center gap-1.5 mb-1">
-          <div className="w-6 h-6 bg-green-600 rounded-lg flex items-center justify-center text-white font-black text-[11px]">K</div>
+          <img src="/logo.png" alt="Karigarr" className="w-6 h-6 rounded-md object-contain" />
           <span className="font-black text-slate-800 text-sm">Karigarr Technologies</span>
         </div>
         <p className="text-center text-[11px] text-slate-400 mb-3">Pakistan's #1 Service Marketplace</p>
