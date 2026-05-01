@@ -15,6 +15,17 @@ app.use('/api/admin',     require('./routes/admin'));
 
 app.get('/api/health', (_, res) => res.json({ status: 'ok' }));
 
+app.post('/api/admin/clear-all-data', (req, res) => {
+  if (!process.env.ADMIN_SECRET || req.headers['x-admin-secret'] !== process.env.ADMIN_SECRET) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+  const fs = require('fs');
+  const dataDir = path.join(__dirname, 'data');
+  const tables = ['users', 'profiles', 'orders', 'offers', 'reviews', 'conversations', 'messages', 'team_members'];
+  tables.forEach(t => fs.writeFileSync(path.join(dataDir, `${t}.json`), '[]'));
+  res.json({ ok: true, cleared: tables });
+});
+
 app.get('/sitemap.xml', (req, res) => {
   res.setHeader('Content-Type', 'application/xml');
   res.sendFile(path.join(__dirname, '../frontend/public/sitemap.xml'));
