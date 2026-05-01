@@ -142,21 +142,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Demo Credentials */}
-      <section className="px-4 mb-5">
-        <div className="card" style={{ background: 'linear-gradient(135deg, #fffbeb, #fef3c7)', border: '1px solid #fde68a' }}>
-          <h3 className="font-bold text-amber-800 text-sm mb-2">🎭 {t('demoCredentials')}</h3>
-          <div className="space-y-1 text-xs text-amber-700">
-            <p>{t('providerDemo')}</p>
-            <p>{t('consumerDemo')}</p>
-            <p className="font-semibold">{t('demoPassword')}</p>
-          </div>
-          <button onClick={() => navigate('/login')} className="mt-3 w-full bg-amber-500 text-white font-bold py-2.5 rounded-xl text-sm active:bg-amber-600">
-            Try Demo →
-          </button>
-        </div>
-      </section>
-
       {/* Join as Provider */}
       {!user && (
         <section className="px-4 mb-8">
